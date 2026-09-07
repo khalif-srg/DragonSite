@@ -1,69 +1,53 @@
-// src/pages/Talent.tsx
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './Talent.css'
 
-const talents = [
-  {
-    name: 'Solace Path',
-    role: 'Sound Producer, Influencer',
-    image: '/images/RazanLatifMain.jpeg',
-    category: 'Creative',
-  },
-  {
-    name: 'Mikhaiel',
-    role: 'Fashion, Influencer',
-    image: '/images/MikhaielMain.jpeg',
-    category: 'Talent',
-  },
-  {
-    name: 'Fargo',
-    role: 'Creative Director',
-    image: '/images/FargoMain.jpeg',
-    category: 'Creative',
-  },
-  {
-    name: 'Akkers',
-    role: 'Fashion, Influencer',
-    image: '/images/AkkersMain.jpeg',
-    category: 'Talent',
-  },
-]
+interface TalentType {
+  id: string
+  name: string
+  role: string
+  image: string
+  category: string
+  city: string
+}
 
 function Talent() {
-  const [activeFilter, setActiveFilter] = useState('All')
+  const [talents, setTalents] = useState<TalentType[]>([])
+  const [activeCity, setActiveCity] = useState('All')
 
-  const filters = ['All', 'Talent', 'Creative', 'Athlete']
+  useEffect(() => {
+    fetch(`${import.meta.env.VITE_API_URL}/api/talent`)
+      .then((res) => res.json())
+      .then((data) => setTalents(data))
+      .catch((err) => console.error('Failed to fetch talent:', err))
+  }, [])
 
-  const filteredTalents =
-    activeFilter === 'All'
-      ? talents
-      : talents.filter((t) => t.category === activeFilter)
+  const cities = ['All', ...new Set(talents.map((t) => t.city))]
+
+  const filteredTalents = talents.filter(
+    (t) => activeCity === 'All' || t.city === activeCity
+  )
 
   return (
     <div className="talent-page">
-      <div className="talent-title">
-        <img src="/images/DRAGONS.png" alt="DRAGONS" />
-      </div>
-
-      <div className="talent-filters">
-        {filters.map((filter) => (
+      <div className="city-tabs">
+        {cities.map((city) => (
           <button
-            key={filter}
-            className={`filter-button ${activeFilter === filter ? 'active' : ''}`}
-            onClick={() => setActiveFilter(filter)}
+            key={city}
+            className={`city-tab ${activeCity === city ? 'active' : ''}`}
+            onClick={() => setActiveCity(city)}
           >
-            {filter}
+            {city}
           </button>
         ))}
       </div>
 
       <div className="talent-grid">
-        {filteredTalents.map((t, i) => (
-          <div className="talent-card" key={i}>
+        {filteredTalents.map((t) => (
+          <div className="talent-card" key={t.id}>
             <div className="talent-image-box">
               <img src={t.image} alt={t.name} />
-              <p className="talent-overlay-name"><em>{t.name}</em></p>
             </div>
+            <p className="talent-name">{t.name}</p>
           </div>
         ))}
       </div>

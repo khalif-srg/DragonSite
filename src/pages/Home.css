@@ -1,51 +1,50 @@
 .home-page {
-  min-height: 100vh; /* fills at least the full screen height */
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
 }
 
-.home-main {
-  flex: 1; /* grows to fill all leftover space between nav and footer */
-  display: flex;
-  justify-content: center; /* centers horizontally */
-  align-items: center;     /* centers vertically within this space */
+.home-content {
+  text-align: center;
 }
 
-.hero-wrapper {
-  position: relative;
-  display: inline-block;
-  max-width: 100vw; /* hard cap so the wrapper itself never exceeds the screen */
-}
-
-.image-box {
-  position: relative;
-  z-index: 1;
-  width: clamp(320px, 90vw, 990px);
-  height: clamp(160px, 40vw, 440px);
+.hero-box {
+  width: 350px;
+  aspect-ratio: 350 / 470;
   overflow: hidden;
   margin: 0 auto;
 }
 
-.image-box img {
+.hero-box img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: 20% 75%;
   display: block;
 }
 
-.poster-bg {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  width: 105%; /* 140% of the hero box's actual rendered size, scales automatically with it */
-  max-width: 100vw; /* still never exceeds the actual screen width */
-  z-index: 2;
-  pointer-events: none;
+.home-title {
+  font-family: 'Bodoni Poster Compressed', serif;
+  font-size: 96px;
+  margin: 24px 0 8px 0;
+  color: #191919;
+  line-height: 1;
 }
 
-.home-footer {
-  text-align: center;
-  padding: 20px 0;
+.home-nav {
+  display: flex;
+  justify-content: center;
+  gap: 24px;
+}
+
+.home-nav a {
+  font-family: 'EB Garamond', serif;
+  font-size: 32px;
+  color: #191919;
+  text-decoration: none;
+}
+
+.home-nav a:hover {
+  opacity: 0.6;
 }
