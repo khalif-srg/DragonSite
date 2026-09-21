@@ -38,7 +38,7 @@ function Admin() {
 
       setMessage('Talent added successfully!')
       setForm({ name: '', role: '', image: '', category: '', city: '' })
-    } catch (err) {
+    } catch {
       setMessage('Something went wrong')
     }
   }

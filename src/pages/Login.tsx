@@ -37,7 +37,7 @@ function Login() {
       const data = await res.json()
       localStorage.setItem('adminToken', data.token)
       navigate('/admin')
-    } catch (err) {
+    } catch {
       setError('Something went wrong')
     }
   }
